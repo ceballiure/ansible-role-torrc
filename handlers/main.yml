@@ -1,0 +1,5 @@
+---
+
+- name: restart_tor_service
+  debug:
+    msg: You should restart the tor service

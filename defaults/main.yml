@@ -1,0 +1,43 @@
+---
+
+# Ceballiure role options
+# owner, group, dest, restart handler
+torrc_owner: tor
+torrc_group: tor
+torrc_dest: /etc/tor/torrc
+torrc_notify: restart_tor_service
+
+# Purely torrc options
+torrc_socks_ports:
+  - '9050'
+torrc_socks_policies: []
+torrc_logs: []
+torrc_run_as_daemon: false
+torrc_data_directory: ''
+torrc_control_port: 0
+torrc_hashed_control_password: ''
+torrc_cookie_authentication: false
+############### This section is just for location-hidden services ###
+torrc_hidden_services: []
+################ This section is just for relays #####################
+torrc_or_ports: []
+torrc_address: ''
+torrc_outbound_bind_address: ''
+torrc_outbound_bind_address_exit: ''
+torrc_outbound_bind_address_or: ''
+torrc_nickname: ''
+torrc_relay_bandwidth_rate: ''
+torrc_relay_bandwidth_burst: ''
+torrc_accounting_max: ''
+torrc_accounting_start: ''
+torrc_contact_info: ''
+torrc_dir_ports: []
+torrc_dir_port_front_page: ''
+torrc_my_family: ''
+torrc_exit_relay: false
+torrc_ipv6_exit: false
+torrc_reduced_exit_policy: false
+torrc_exit_policies: []
+torrc_bridge_relay: false
+torrc_publish_server_descriptor: true
+torrc_includes: []

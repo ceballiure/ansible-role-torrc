@@ -1,0 +1,9 @@
+---
+
+- name: Render torrc
+  template:
+    src: torrc.j2
+    dest: '{{ torrc_dest }}'
+    owner: '{{ torrc_owner }}'
+    group: '{{ torrc_group }}'
+  notify: '{{ torrc_notify }}'

@@ -1,0 +1,16 @@
+dependencies: []
+galaxy_info:
+  author: n1ngu
+  role_name: torrc
+  description: Template a torrc file
+  company: ceballiure
+  license: AGPL
+  min_ansible_version: 2.9
+  platforms:
+  - name: Debian
+    versions:
+    - buster
+  galaxy_tags:
+    - tor
+    - torrc
+    - onion

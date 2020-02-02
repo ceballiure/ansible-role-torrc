@@ -1,0 +1,6 @@
+version: '3'
+services:
+
+  relay:
+    image: registry.gitlab.com/ceballiure/docker-tor-rust:0.4.1.6
+    command: sleep infinity
