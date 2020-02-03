@@ -5,16 +5,7 @@
 {%- for port in torrc_socks_ports %}
 SOCKSPort {{ port }}
 {% endfor %}
-{#
-## Entry policies to allow/deny SOCKS requests based on IP address.
-## First entry that matches wins. If no SOCKSPolicy is set, we accept
-## all (and only) requests that reach a SOCKSPort. Untrusted users who
-## can access your SOCKSPort may be able to learn about the connections
-## you make.
-#SOCKSPolicy accept 192.168.0.0/16
-#SOCKSPolicy accept6 FC00::/7
-#SOCKSPolicy reject *
-#}
+
 {%- for policy in torrc_socks_policies %}
 SOCKSPolicy {{ policy }}
 {% endfor %}

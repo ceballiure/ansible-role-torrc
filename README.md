@@ -21,8 +21,8 @@ Role Variables
 
 ### Tor-specific variables
 
-- `torrc_socks_ports: ['9050']` Tor opens a SOCKS proxy on port 9050 by default -- even if you don't configure one below. Set `torrc_socks_ports: ['0']` if you plan to run Tor only as a relay, and not make any local application connections yourself.
-- `torrc_socks_policies: []`
+- `torrc_socks_ports: ['9050']` Tor opens a SOCKS proxy on port 9050 by default -- even if you don't configure one. Set `torrc_socks_ports: ['0']` if you plan to run Tor only as a relay, and not make any local application connections yourself.
+- `torrc_socks_policies: []` Entry policies to allow/deny SOCKS requests based on IP address. First entry that matches wins. If no SOCKSPolicy is set, we accept all (and only) requests that reach a SOCKSPort. Untrusted users who can access your SOCKSPort may be able to learn about the connections you make.
 - `torrc_logs: []`
 - `torrc_run_as_daemon: false`
 - `torrc_data_directory: ''`
@@ -30,7 +30,7 @@ Role Variables
 - `torrc_hashed_control_password: ''`
 - `torrc_cookie_authentication: false`
 #### Hidden service options
-torrc_hidden_services: []
+- `torrc_hidden_services: []`
 #### Tor relay options
 - `torrc_or_ports: []`
 - `torrc_address: ''`
@@ -68,6 +68,10 @@ Example Playbook
     torrc_socks_ports:
       - '9050'  # Default: Bind to localhost:9050 for local connections.
       - '192.168.0.1:9100'  # Bind to this address:port too.
+    torrc_socks_policies:
+      - accept 192.168.0.0/16
+      - accept6 FC00::/7
+      - reject *
 ```
 
 License
