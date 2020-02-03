@@ -13,11 +13,6 @@ SOCKSPolicy {{ policy }}
 {%- for log in torrc_logs %}
 Log {{ log }}
 {% endfor %}
-{#
-## Uncomment this to start the process in the background... or use
-## --runasdaemon 1 on the command line. This is ignored on Windows;
-## see the FAQ entry if you want Tor to run as an NT service.
-#}
 RunAsDaemon {{ renderbool(torrc_run_as_daemon) }}
 {#
 ## The directory for keeping all the keys/etc. By default, we store
