@@ -9,23 +9,7 @@ SOCKSPort {{ port }}
 {%- for policy in torrc_socks_policies %}
 SOCKSPolicy {{ policy }}
 {% endfor %}
-{#
-## Logs go to stdout at level "notice" unless redirected by something
-## else, like one of the below lines. You can have as many Log lines as
-## you want.
-##
-## We advise using "notice" in most cases, since anything more verbose
-## may provide sensitive information to an attacker who obtains the logs.
-##
-## Send all messages of level 'notice' or higher to @LOCALSTATEDIR@/log/tor/notices.log
-#Log notice file @LOCALSTATEDIR@/log/tor/notices.log
-## Send every possible message to @LOCALSTATEDIR@/log/tor/debug.log
-#Log debug file @LOCALSTATEDIR@/log/tor/debug.log
-## Use the system log instead of Tor's logfiles
-#Log notice syslog
-## To send all messages to stderr:
-#Log debug stderr
-#}
+
 {%- for log in torrc_logs %}
 Log {{ log }}
 {% endfor %}

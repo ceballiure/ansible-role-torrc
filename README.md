@@ -23,7 +23,7 @@ Role Variables
 
 - `torrc_socks_ports: ['9050']` Tor opens a SOCKS proxy on port 9050 by default -- even if you don't configure one. Set `torrc_socks_ports: ['0']` if you plan to run Tor only as a relay, and not make any local application connections yourself.
 - `torrc_socks_policies: []` Entry policies to allow/deny SOCKS requests based on IP address. First entry that matches wins. If no SOCKSPolicy is set, we accept all (and only) requests that reach a SOCKSPort. Untrusted users who can access your SOCKSPort may be able to learn about the connections you make.
-- `torrc_logs: []`
+- `torrc_logs: []` Logs go to stdout at level "notice" unless redirected by something else, like one of the example lines. You can have as many Log lines as you want.  We advise using "notice" in most cases, since anything more verbose may provide sensitive information to an attacker who obtains the logs.
 - `torrc_run_as_daemon: false`
 - `torrc_data_directory: ''`
 - `torrc_control_port: 0`
@@ -72,6 +72,16 @@ Example Playbook
       - accept 192.168.0.0/16
       - accept6 FC00::/7
       - reject *
+    torrc_logs:
+      # Send all messages of level 'notice' or higher to @LOCALSTATEDIR@/log/tor/notices.log
+      - notice file @LOCALSTATEDIR@/log/tor/notices.log
+      # Send every possible message to @LOCALSTATEDIR@/log/tor/debug.log
+      - debug file @LOCALSTATEDIR@/log/tor/debug.log
+      # Use the system log instead of Tor's logfiles
+      - notice syslog
+      # To send all messages to stderr
+      - debug stderr
+
 ```
 
 License
