@@ -30,7 +30,7 @@ Role Variables
 - `torrc_hashed_control_password: ''`
 - `torrc_cookie_authentication: false`
 #### Hidden service options
-- `torrc_hidden_services: []`
+- `torrc_hidden_services: []` List of `{dir: '.../hidden_service', ports: ['x y:z']}` dicts to describe hidden services. "x y:z" says to redirect requests on port x to the address y:z. Once you have configured a hidden service, you can look at the contents of the file ".../hidden_service/hostname" for the address to tell people.
 #### Tor relay options
 - `torrc_or_ports: []`
 - `torrc_address: ''`
@@ -85,7 +85,14 @@ Example Playbook
     torrc_control_port: '9051'
     torrc_hashed_control_password: '16:872860B76453A77D60CA2BB8C1A7042072093276A3D701AD684053EC4C'
     torrc_cookie_authentication: true
-
+    torrc_hidden_services:
+      - dir: '@LOCALSTATEDIR@/lib/tor/hidden_service/'
+        ports:
+          - '80 127.0.0.1:80'
+      - dir: '@LOCALSTATEDIR@/lib/tor/other_hidden_service/'
+        ports:
+          - '80 127.0.0.1:80'
+          - '22 127.0.0.1:22'
 
 ```
 
