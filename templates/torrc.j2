@@ -13,12 +13,9 @@ SOCKSPolicy {{ policy }}
 {%- for log in torrc_logs %}
 Log {{ log }}
 {% endfor %}
+{# Maybe not render if not needed? #}
 RunAsDaemon {{ renderbool(torrc_run_as_daemon) }}
-{#
-## The directory for keeping all the keys/etc. By default, we store
-## things in $HOME/.tor on Unix, and in Application Data\tor on Windows.
-#DataDirectory {{ @LOCALSTATEDIR@/lib/tor }}
-#}
+
 {%- if torrc_data_directory %}
 DataDirectory {{ torrc_data_directory }}
 {% endif %}

@@ -25,7 +25,7 @@ Role Variables
 - `torrc_socks_policies: []` Entry policies to allow/deny SOCKS requests based on IP address. First entry that matches wins. If no SOCKSPolicy is set, we accept all (and only) requests that reach a SOCKSPort. Untrusted users who can access your SOCKSPort may be able to learn about the connections you make.
 - `torrc_logs: []` Logs go to stdout at level "notice" unless redirected by something else, like one of the example lines. You can have as many Log lines as you want.  We advise using "notice" in most cases, since anything more verbose may provide sensitive information to an attacker who obtains the logs.
 - `torrc_run_as_daemon: false` Set to `true` to start the process in the background.
-- `torrc_data_directory: ''`
+- `torrc_data_directory: ''` The directory for keeping all the keys/etc. By default, we store things in $HOME/.tor on Unix.
 - `torrc_control_port: 0`
 - `torrc_hashed_control_password: ''`
 - `torrc_cookie_authentication: false`
@@ -81,6 +81,8 @@ Example Playbook
       - notice syslog
       # To send all messages to stderr
       - debug stderr
+    torrc_data_directory: '@LOCALSTATEDIR@/lib/tor'
+    
 
 ```
 
