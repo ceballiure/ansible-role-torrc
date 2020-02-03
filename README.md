@@ -26,7 +26,7 @@ Role Variables
 - `torrc_logs: []` Logs go to stdout at level "notice" unless redirected by something else, like one of the example lines. You can have as many Log lines as you want.  We advise using "notice" in most cases, since anything more verbose may provide sensitive information to an attacker who obtains the logs.
 - `torrc_run_as_daemon: false` Set to `true` to start the process in the background.
 - `torrc_data_directory: ''` The directory for keeping all the keys/etc. By default, we store things in $HOME/.tor on Unix.
-- `torrc_control_port: 0`
+- `torrc_control_port: 0` The port on which Tor will listen for local connections from Tor controller applications, as documented in control-spec.txt. If you enable the controlport, be sure to enable either hashed control password or cookie authentication, to prevent attackers from accessing it.
 - `torrc_hashed_control_password: ''`
 - `torrc_cookie_authentication: false`
 #### Hidden service options
@@ -82,7 +82,10 @@ Example Playbook
       # To send all messages to stderr
       - debug stderr
     torrc_data_directory: '@LOCALSTATEDIR@/lib/tor'
-    
+    torrc_control_port: '9051'
+    torrc_hashed_control_password: '16:872860B76453A77D60CA2BB8C1A7042072093276A3D701AD684053EC4C'
+    torrc_cookie_authentication: true
+
 
 ```
 
