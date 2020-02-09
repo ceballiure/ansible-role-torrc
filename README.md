@@ -79,6 +79,10 @@ You might also include your PGP or GPG fingerprint if you have one.
 Use this to mirror directory information for others. Please do
 if you have enough bandwidth.
 - `torrc_dir_port_front_page: ''`
+Use to return an arbitrary blob of html on your DirPort. Now you
+can explain what Tor is if anybody wonders why your IP address is
+contacting them. See contrib/tor-exit-notice.html in Tor's source
+distribution for a sample.
 - `torrc_my_family: ''`
 - `torrc_exit_relay: false`
 - `torrc_ipv6_exit: false`
@@ -168,7 +172,7 @@ Example Playbook
       ## forwarding yourself to make this work.
       - 80 NoListen
       - 127.0.0.1:9091 NoAdvertise
-    torrc_dir_port_front_page: ''
+    torrc_dir_port_front_page: '@CONFDIR@/tor-exit-notice.html'
     torrc_my_family: ''
     torrc_exit_relay: false
     torrc_ipv6_exit: false

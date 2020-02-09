@@ -76,13 +76,7 @@ ContactInfo {{ torrc_contact_info }}
 {%- for port in torrc_dir_ports %}
 DirPort {{ port }}
 {% endfor %}
-{#
-## Uncomment to return an arbitrary blob of html on your DirPort. Now you
-## can explain what Tor is if anybody wonders why your IP address is
-## contacting them. See contrib/tor-exit-notice.html in Tor's source
-## distribution for a sample.
-#DirPortFrontPage @CONFDIR@/tor-exit-notice.html
-#}
+
 {%- if torrc_dir_port_front_page %}
 DirPortFrontPage {{ torrc_dir_port_front_page }}
 {% endif %}
