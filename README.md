@@ -40,6 +40,13 @@ relay. Leave commented out and Tor will guess.
 - `torrc_outbound_bind_address: ''`
 - `torrc_outbound_bind_address_exit: ''`
 - `torrc_outbound_bind_address_or: ''`
+If you have multiple network interfaces, you can specify one for
+outgoing traffic to use.
+`torrc_outbound_bind_address_exit` will be used for all exit traffic, while
+`torrc_outbound_bind_address_or` will be used for all OR and Dir connections
+(DNS connections ignore `torrc_outbound_bind_address`).
+If you do not wish to differentiate, use `torrc_outbound_bind_address` to
+specify the same address for both in a single line.
 - `torrc_nickname: ''`
 - `torrc_relay_bandwidth_rate: ''`
 - `torrc_relay_bandwidth_burst: ''`
@@ -116,8 +123,8 @@ Example Playbook
       - '[2001:DB8::1]:9050'
     torrc_address: 'noname.example.com'
     torrc_outbound_bind_address: ''
-    torrc_outbound_bind_address_exit: ''
-    torrc_outbound_bind_address_or: ''
+    torrc_outbound_bind_address_exit: '10.0.0.4'
+    torrc_outbound_bind_address_or: '10.0.0.5'
     torrc_nickname: ''
     torrc_relay_bandwidth_rate: ''
     torrc_relay_bandwidth_burst: ''
