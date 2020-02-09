@@ -3,7 +3,7 @@ Torrc
 
 Templae a torrc configuration file. And nothing else!
 
-Based on [configuration file for a typical Tor user](https://FIXME), last updated 28 February 2019 for Tor 0.3.5.1-alpha (may or may not work for much older or much newer versions of Tor.)
+Based on [configuration file for a typical Tor user](https://github.com/torproject/tor/blob/57c34e80dabe45d9a396a67662c38820453a3c52/src/config/torrc.sample.in), last updated 5 August 2019 for Tor 0.4.2.1-alpha (may or may not work for much older or much newer versions of Tor.)
 
 This role tries to honor the default variables of a tor daemon.
 
@@ -107,12 +107,12 @@ of exit ports.
 A comma-separated list of exit policies. They're considered first
 to last, and the first match wins. Filling this will make your relay an exit!
 § If you want to allow the same ports on IPv4 and IPv6, write your rules
-using accept/reject *. If you want to allow different ports on IPv4 and
-IPv6, write your IPv6 rules using accept6/reject6 *6, and your IPv4 rules
-using accept/reject *4.
+using `accept/reject *`. If you want to allow different ports on IPv4 and
+IPv6, write your IPv6 rules using `accept6/reject6 *6`, and your IPv4 rules
+using `accept/reject *4`.
 § If you want to _replace_ the default exit policy, end this with either a
-reject *:* or an accept *:*. Otherwise, you're _augmenting_ (prepending to)
-the default exit policy. Leave commented to just use the default, which is
+`reject *:*` or an `accept *:*`. Otherwise, you're _augmenting_ (prepending to)
+the default exit policy. Leave empty to just use the default, which is
 described in the man page or at
 https://www.torproject.org/documentation.html
 § Look at https://www.torproject.org/faq-abuse.html#TypicalAbuses
