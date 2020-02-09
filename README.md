@@ -54,6 +54,12 @@ contain only the characters [a-zA-Z0-9].
 If not set, "Unnamed" will be used.
 - `torrc_relay_bandwidth_rate: ''`
 - `torrc_relay_bandwidth_burst: ''`
+Define these to limit how much relayed traffic you will allow. Your
+own traffic is still unthrottled. Note that RelayBandwidthRate must
+be at least 75 kilobytes per second.
+Note that units for these config options are bytes (per second), not
+bits (per second), and that prefixes are binary prefixes, i.e. 2^10,
+2^20, etc.
 - `torrc_accounting_max: ''`
 - `torrc_accounting_start: ''`
 - `torrc_contact_info: ''`
@@ -130,8 +136,10 @@ Example Playbook
     torrc_outbound_bind_address_exit: '10.0.0.4'
     torrc_outbound_bind_address_or: '10.0.0.5'
     torrc_nickname: 'ididnteditheconfig'
-    torrc_relay_bandwidth_rate: ''
-    torrc_relay_bandwidth_burst: ''
+    # Throttle traffic to 100KB/s (800Kbps)
+    torrc_relay_bandwidth_rate: '100 KBytes'
+    # But allow bursts up to 200KB (1600Kb)
+    torrc_relay_bandwidth_burst: '200 KBytes'
     torrc_accounting_max: ''
     torrc_accounting_start: ''
     torrc_contact_info: ''
