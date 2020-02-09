@@ -1,8 +1,79 @@
 ---
 
+# GIVEN
+- hosts: all
+  tasks:
+    - name: Set initial facts
+      set_fact:
+        handler_was_run: false
+
+# WHEN
 - hosts: all
   roles:
     - ceballiure.torrc
+  handlers:
+    - name: my_handler
+      set_fact:
+        handler_was_run: true
   vars:
-    torrc_raw : |
+    torrc_dest: /tmp/torrc-test
+    torrc_notify: my_handler
+    torrc_socks_ports:
+      - '9050'
+      - '192.168.0.1:9100'
+    torrc_socks_policies:
+      - accept 192.168.0.0/16
+      - accept6 FC00::/7
+      - reject *
+    torrc_logs:
+      - debug stdout
+    torrc_data_directory: '/var/lib/tor'
+    torrc_control_port: '9051'
+    torrc_cookie_authentication: true
+    torrc_hidden_services:
+      - dir: '/var/lib/tor/hidden_service/'
+        ports:
+          - '80 127.0.0.1:80'
+      - dir: '/var/lib/tor/other_hidden_service/'
+        ports:
+          - '80 127.0.0.1:80'
+          - '22 127.0.0.1:22'
+    torrc_or_ports:
+      - '443 NoListen'
+      - '127.0.0.1:9090 NoAdvertise'
+    torrc_address: 'noname.example.com'
+    torrc_outbound_bind_address_exit: '10.0.0.4'
+    torrc_outbound_bind_address_or: '10.0.0.5'
+    torrc_nickname: 'ididnteditheconfig'
+    torrc_relay_bandwidth_rate: '100 KBytes'
+    torrc_relay_bandwidth_burst: '200 KBytes'
+    torrc_accounting_max: '40 GBytes'
+    torrc_accounting_start: 'day 00:00'
+    torrc_contact_info: '0xFFFFFFFF Random Person <nobody AT example dot com>'
+    torrc_dir_ports:
+      - 80 NoListen
+      - 127.0.0.1:9091 NoAdvertise
+    torrc_dir_port_front_page: '/etc/tor/tor-exit-notice.html'
+    torrc_my_family: '{{ [1,2,3] | join(",") }}'
+    torrc_exit_relay: true
+    torrc_ipv6_exit: true
+    torrc_reduced_exit_policy: true
+    torrc_exit_policies:
+      - reject *:*
+    torrc_raw: |
       # hello!
+
+# THEN
+- hosts: all
+  tasks:
+
+    - name: Validate torrc
+      command:
+        cmd: tor -f /tmp/torrc-test --verify-config
+      become: true
+      become_user: tor
+
+    - name: Assert the handler was run
+      fail:
+        msg: the custom handler was not run!
+      when: not handler_was_run
