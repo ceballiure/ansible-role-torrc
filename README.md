@@ -35,6 +35,8 @@ Role Variables
 - `torrc_or_ports: []`
 Required: what port(s) to advertise for incoming Tor connections.
 - `torrc_address: ''`
+The IP address or full DNS name for incoming connections to your
+relay. Leave commented out and Tor will guess.
 - `torrc_outbound_bind_address: ''`
 - `torrc_outbound_bind_address_exit: ''`
 - `torrc_outbound_bind_address_or: ''`
@@ -112,7 +114,7 @@ Example Playbook
       ## If you want to listen on IPv6 your numeric address must be explictly
       ## between square brackets as follows. You must also listen on IPv4.
       - '[2001:DB8::1]:9050'
-    torrc_address: ''
+    torrc_address: 'noname.example.com'
     torrc_outbound_bind_address: ''
     torrc_outbound_bind_address_exit: ''
     torrc_outbound_bind_address_or: ''
