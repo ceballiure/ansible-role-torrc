@@ -136,23 +136,7 @@ ReducedExitPolicy {{ renderbool(torrc_reduced_exit_policy) }}
 {%- for policy in torrc_exit_policies %}
 ExitPolicy {{ policy }}
 {% endfor %}
-{#
-## Bridge relays (or "bridges") are Tor relays that aren't listed in the
-## main directory. Since there is no complete public list of them, even an
-## ISP that filters connections to all the known Tor relays probably
-## won't be able to block all the bridges. Also, websites won't treat you
-## differently because they won't know you're running Tor. If you can
-## be a real relay, please do; but if not, be a bridge!
-##
-## Warning: when running your Tor as a bridge, make sure than MyFamily is
-## NOT configured.
-#BridgeRelay 1
-## By default, Tor will advertise your bridge to users through various
-## mechanisms like https://bridges.torproject.org/. If you want to run
-## a private bridge, for example because you'll give out your bridge
-## address manually to your friends, uncomment this line:
-#PublishServerDescriptor 0
-#}
+
 {%- if torrc_bridge_relay %}
 BridgeRelay {{ renderbool(torrc_bridge_relay) }}
 PublishServerDescriptor {{ renderbool(torrc_publish_server_descriptor) }}

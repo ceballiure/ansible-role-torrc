@@ -104,8 +104,20 @@ Set true if you want your relay to allow IPv6 exit traffic.
 Set true if you want your relay to be an exit, with a reduced set
 of exit ports.
 - `torrc_exit_policies: []`
-- `torrc_bridge_relay: false`
+- `torrc_bridge_relay: true`
+Bridge relays (or "bridges") are Tor relays that aren't listed in the
+main directory. Since there is no complete public list of them, even an
+ISP that filters connections to all the known Tor relays probably
+won't be able to block all the bridges. Also, websites won't treat you
+differently because they won't know you're running Tor. If you can
+be a real relay, please do; but if not, be a bridge!
+**Warning: when running your Tor as a bridge, make sure than MyFamily is
+NOT configured.**
 - `torrc_publish_server_descriptor: true`
+By default, Tor will advertise your bridge to users through various
+mechanisms like https://bridges.torproject.org/. If you want to run
+a private bridge, for example because you'll give out your bridge
+address manually to your friends, set this option to `false`.
 #### Other options
 - `torrc_includes: []`
 Configuration options can be imported from files or folders using the %include
@@ -194,8 +206,8 @@ Example Playbook
     torrc_ipv6_exit: true
     torrc_reduced_exit_policy: true
     torrc_exit_policies: []
-    torrc_bridge_relay: false
-    torrc_publish_server_descriptor: true
+    torrc_bridge_relay: true
+    torrc_publish_server_descriptor: false
     torrc_includes:
       - /etc/torrc.d/
       - /etc/torrc.custom
