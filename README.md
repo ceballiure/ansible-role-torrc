@@ -54,8 +54,16 @@ Role Variables
 - `torrc_publish_server_descriptor: true`
 #### Other options
 - `torrc_includes: []`
-- `torrc_??????: ''` custom torrc blob
-
+Configuration options can be imported from files or folders using the %include
+option with the value being a path. If the path is a file, the options from the
+file will be parsed as if they were written where the %include option is. If
+the path is a folder, all files on that folder will be parsed following lexical
+order. Files starting with a dot are ignored. Files on subfolders are ignored.
+The %include option can be used recursively.
+- `torrc_raw: ''`
+This option can be used to write an arbitrary torrc fragment at the end of the
+template. This is useful for templating more rare torrc options not exposed
+by this role.
 
 Example Playbook
 ----------------
@@ -93,7 +101,13 @@ Example Playbook
         ports:
           - '80 127.0.0.1:80'
           - '22 127.0.0.1:22'
-
+    torrc_includes:
+      - /etc/torrc.d/
+      - /etc/torrc.custom
+    torrc_raw: |
+      # You can add an arbitrary torrc block at the end
+      # Note that this are not YAML comments but torrc comments
+      # because of the YAML multiline
 ```
 
 License
