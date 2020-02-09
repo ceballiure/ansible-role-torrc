@@ -67,7 +67,17 @@ Note that this threshold applies separately to sent and received bytes,
 not to their sum: setting "40 GB" may allow up to 80 GB total before
 hibernating.
 - `torrc_contact_info: ''`
+Administrative contact information for this relay or bridge. This line
+can be used to contact you if your relay or bridge is misconfigured or
+something else goes wrong. Note that we archive and publish all
+descriptors containing these lines and that Google indexes them, so
+spammers might also collect them. You may want to obscure the fact that
+it's an email address and/or generate a new address for this purpose.
+**If you are running multiple relays, you MUST set this option.**
+You might also include your PGP or GPG fingerprint if you have one.
 - `torrc_dir_ports: []`
+Use this to mirror directory information for others. Please do
+if you have enough bandwidth.
 - `torrc_dir_port_front_page: ''`
 - `torrc_my_family: ''`
 - `torrc_exit_relay: false`
@@ -150,8 +160,14 @@ Example Playbook
     torrc_accounting_start: 'day 00:00'
     ## Each period starts on the 3rd of the month at 15:00 (AccountingMax is per month)
     torrc_accounting_start: 'month 3 15:00'
-    torrc_contact_info: ''
-    torrc_dir_ports: []
+    torrc_contact_info: '0xFFFFFFFF Random Person <nobody AT example dot com>'
+    torrc_dir_ports:
+      ## If you want to listen on a port other than the one advertised in
+      ## DirPort (e.g. to advertise 80 but bind to 9091), you can do it as
+      ## follows. You'll need to do ipchains or other port
+      ## forwarding yourself to make this work.
+      - 80 NoListen
+      - 127.0.0.1:9091 NoAdvertise
     torrc_dir_port_front_page: ''
     torrc_my_family: ''
     torrc_exit_relay: false

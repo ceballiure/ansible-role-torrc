@@ -68,34 +68,11 @@ AccountingMax {{ torrc_accounting_max }}
 {%- if torrc_accounting_start %}
 AccountingStart {{ torrc_accounting_start }}
 {% endif %}
-{#
-## Administrative contact information for this relay or bridge. This line
-## can be used to contact you if your relay or bridge is misconfigured or
-## something else goes wrong. Note that we archive and publish all
-## descriptors containing these lines and that Google indexes them, so
-## spammers might also collect them. You may want to obscure the fact that
-## it's an email address and/or generate a new address for this purpose.
-##
-## If you are running multiple relays, you MUST set this option.
-##
-#ContactInfo Random Person <nobody AT example dot com>
-## You might also include your PGP or GPG fingerprint if you have one:
-#ContactInfo 0xFFFFFFFF Random Person <nobody AT example dot com>
-#}
+
 {%- if torrc_contact_info %}
 ContactInfo {{ torrc_contact_info }}
 {% endif %}
-{#
-## Uncomment this to mirror directory information for others. Please do
-## if you have enough bandwidth.
-#DirPort 9030 # what port to advertise for directory connections
-## If you want to listen on a port other than the one advertised in
-## DirPort (e.g. to advertise 80 but bind to 9091), you can do it as
-## follows.  below too. You'll need to do ipchains or other port
-## forwarding yourself to make this work.
-#DirPort 80 NoListen
-#DirPort 127.0.0.1:9091 NoAdvertise
-#}
+
 {%- for port in torrc_dir_ports %}
 DirPort {{ port }}
 {% endfor %}
