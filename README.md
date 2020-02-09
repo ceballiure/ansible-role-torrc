@@ -104,6 +104,27 @@ Set true if you want your relay to allow IPv6 exit traffic.
 Set true if you want your relay to be an exit, with a reduced set
 of exit ports.
 - `torrc_exit_policies: []`
+A comma-separated list of exit policies. They're considered first
+to last, and the first match wins. Filling this will make your relay an exit!
+§ If you want to allow the same ports on IPv4 and IPv6, write your rules
+using accept/reject *. If you want to allow different ports on IPv4 and
+IPv6, write your IPv6 rules using accept6/reject6 *6, and your IPv4 rules
+using accept/reject *4.
+§ If you want to _replace_ the default exit policy, end this with either a
+reject *:* or an accept *:*. Otherwise, you're _augmenting_ (prepending to)
+the default exit policy. Leave commented to just use the default, which is
+described in the man page or at
+https://www.torproject.org/documentation.html
+§ Look at https://www.torproject.org/faq-abuse.html#TypicalAbuses
+for issues you might encounter if you use the default exit policy.
+§ If certain IPs and ports are blocked externally, e.g. by your firewall,
+you should update your exit policy to reflect this -- otherwise Tor
+users will be told that those destinations are down.
+§ For security, by default Tor rejects connections to private (local)
+networks, including to the configured primary public IPv4 and IPv6 addresses,
+and any public IPv4 and IPv6 addresses on any interface on the relay.
+See the man page entry for ExitPolicyRejectPrivate if you want to allow
+"exit enclaving".
 - `torrc_bridge_relay: true`
 Bridge relays (or "bridges") are Tor relays that aren't listed in the
 main directory. Since there is no complete public list of them, even an
@@ -205,7 +226,17 @@ Example Playbook
     torrc_exit_relay: true
     torrc_ipv6_exit: true
     torrc_reduced_exit_policy: true
-    torrc_exit_policies: []
+    torrc_exit_policies:
+      # allow irc ports on IPv4 and IPv6 but no more
+      - accept *:6660-6667,reject *:*
+      # accept nntp ports on IPv4 and IPv6 as well as default exit policy
+      - accept *:119
+      # accept nntp ports on IPv4 only as well as default exit policy
+      - accept *4:119
+      # accept nntp ports on IPv6 only as well as default exit policy
+      - accept6 *6:119
+      # no exits allowed
+      - reject *:*
     torrc_bridge_relay: true
     torrc_publish_server_descriptor: false
     torrc_includes:
