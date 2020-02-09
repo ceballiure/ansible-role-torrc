@@ -33,6 +33,7 @@ Role Variables
 - `torrc_hidden_services: []` List of `{dir: '.../hidden_service', ports: ['x y:z']}` dicts to describe hidden services. "x y:z" says to redirect requests on port x to the address y:z. Once you have configured a hidden service, you can look at the contents of the file ".../hidden_service/hostname" for the address to tell people.
 #### Tor relay options
 - `torrc_or_ports: []`
+Required: what port(s) to advertise for incoming Tor connections.
 - `torrc_address: ''`
 - `torrc_outbound_bind_address: ''`
 - `torrc_outbound_bind_address_exit: ''`
@@ -101,6 +102,35 @@ Example Playbook
         ports:
           - '80 127.0.0.1:80'
           - '22 127.0.0.1:22'
+    torrc_or_ports:
+      ## If you want to listen on a port other than the one advertised in
+      ## ORPort (e.g. to advertise 443 but bind to 9090), you can do it as
+      ## follows.  You'll need to do ipchains or other port forwarding
+      ## yourself to make this work.
+      - '443 NoListen'
+      - '127.0.0.1:9090 NoAdvertise'
+      ## If you want to listen on IPv6 your numeric address must be explictly
+      ## between square brackets as follows. You must also listen on IPv4.
+      - '[2001:DB8::1]:9050'
+    torrc_address: ''
+    torrc_outbound_bind_address: ''
+    torrc_outbound_bind_address_exit: ''
+    torrc_outbound_bind_address_or: ''
+    torrc_nickname: ''
+    torrc_relay_bandwidth_rate: ''
+    torrc_relay_bandwidth_burst: ''
+    torrc_accounting_max: ''
+    torrc_accounting_start: ''
+    torrc_contact_info: ''
+    torrc_dir_ports: []
+    torrc_dir_port_front_page: ''
+    torrc_my_family: ''
+    torrc_exit_relay: false
+    torrc_ipv6_exit: false
+    torrc_reduced_exit_policy: false
+    torrc_exit_policies: []
+    torrc_bridge_relay: false
+    torrc_publish_server_descriptor: true
     torrc_includes:
       - /etc/torrc.d/
       - /etc/torrc.custom

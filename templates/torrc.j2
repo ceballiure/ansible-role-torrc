@@ -32,23 +32,7 @@ HiddenServiceDir {{ service.dir }}
 HiddenServicePort {{ port }}
 {% endfor %}
 {% endfor %}
-{#
-################ This section is just for relays #####################
-#
-## See https://www.torproject.org/docs/tor-doc-relay for details.
 
-## Required: what port to advertise for incoming Tor connections.
-#ORPort 9001
-## If you want to listen on a port other than the one advertised in
-## ORPort (e.g. to advertise 443 but bind to 9090), you can do it as
-## follows.  You'll need to do ipchains or other port forwarding
-## yourself to make this work.
-#ORPort 443 NoListen
-#ORPort 127.0.0.1:9090 NoAdvertise
-## If you want to listen on IPv6 your numeric address must be explictly
-## between square brackets as follows. You must also listen on IPv4.
-#ORPort [2001:DB8::1]:9050
-#}
 {%- for port in torrc_or_ports %}
 ORPort {{ port }}
 {% endfor %}
