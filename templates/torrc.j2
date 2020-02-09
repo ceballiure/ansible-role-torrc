@@ -84,29 +84,15 @@ DirPortFrontPage {{ torrc_dir_port_front_page }}
 {%- if torrc_my_family %}
 MyFamily {{ torrc_my_family }}
 {% endif %}
-{#
-## Uncomment this if you want your relay to be an exit, with the default
-## exit policy (or whatever exit policy you set below).
-## (If ReducedExitPolicy, ExitPolicy, or IPv6Exit are set, relays are exits.
-## If none of these options are set, relays are non-exits.)
-#ExitRelay 1
-#}
+
 {%- if torrc_exit_relay %}
 ExitRelay {{ renderbool(torrc_exit_relay) }}
 {% endif %}
-{#
-## Uncomment this if you want your relay to allow IPv6 exit traffic.
-## (Relays do not allow any exit traffic by default.)
-#IPv6Exit 1
-#}
+
 {%- if torrc_ipv6_exit %}
 IPv6Exit {{ renderbool(torrc_ipv6_exit) }}
 {% endif %}
-{#
-## Uncomment this if you want your relay to be an exit, with a reduced set
-## of exit ports.
-#ReducedExitPolicy 1
-#}
+
 {%- if torrc_reduced_exit_policy %}
 ReducedExitPolicy {{ renderbool(torrc_reduced_exit_policy) }}
 {% endif %}

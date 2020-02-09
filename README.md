@@ -93,8 +93,16 @@ However, you should never include a bridge's fingerprint here, as it would
 break its concealability and potentially reveal its IP/TCP address.
 **If you are running multiple relays, you MUST set this option.**
 - `torrc_exit_relay: false`
+Set true if you want your relay to be an exit, with the default
+exit policy (or whatever exit policy you set below).
+(If `torrc_reduced_exit_policy`, `torrc_exit_policies`, or `torrc_ipv6_exit` are set, relays are exits.
+If none of these options are set, relays are non-exits.)
 - `torrc_ipv6_exit: false`
+Set true if you want your relay to allow IPv6 exit traffic.
+(Relays do not allow any exit traffic by default.)
 - `torrc_reduced_exit_policy: false`
+Set true if you want your relay to be an exit, with a reduced set
+of exit ports.
 - `torrc_exit_policies: []`
 - `torrc_bridge_relay: false`
 - `torrc_publish_server_descriptor: true`
@@ -182,9 +190,9 @@ Example Playbook
       - 127.0.0.1:9091 NoAdvertise
     torrc_dir_port_front_page: '@CONFDIR@/tor-exit-notice.html'
     torrc_my_family: '{{ your_family_keys_fingerprints | join(",") }}'
-    torrc_exit_relay: false
-    torrc_ipv6_exit: false
-    torrc_reduced_exit_policy: false
+    torrc_exit_relay: true
+    torrc_ipv6_exit: true
+    torrc_reduced_exit_policy: true
     torrc_exit_policies: []
     torrc_bridge_relay: false
     torrc_publish_server_descriptor: true
