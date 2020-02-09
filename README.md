@@ -62,6 +62,10 @@ bits (per second), and that prefixes are binary prefixes, i.e. 2^10,
 2^20, etc.
 - `torrc_accounting_max: ''`
 - `torrc_accounting_start: ''`
+Use these to restrict the maximum traffic per day, week, or month.
+Note that this threshold applies separately to sent and received bytes,
+not to their sum: setting "40 GB" may allow up to 80 GB total before
+hibernating.
 - `torrc_contact_info: ''`
 - `torrc_dir_ports: []`
 - `torrc_dir_port_front_page: ''`
@@ -140,8 +144,12 @@ Example Playbook
     torrc_relay_bandwidth_rate: '100 KBytes'
     # But allow bursts up to 200KB (1600Kb)
     torrc_relay_bandwidth_burst: '200 KBytes'
-    torrc_accounting_max: ''
-    torrc_accounting_start: ''
+    ## Set a maximum of 40 gigabytes each way per period.
+    torrc_accounting_max: '40 GBytes'
+    ## Each period starts daily at midnight (AccountingMax is per day)
+    torrc_accounting_start: 'day 00:00'
+    ## Each period starts on the 3rd of the month at 15:00 (AccountingMax is per month)
+    torrc_accounting_start: 'month 3 15:00'
     torrc_contact_info: ''
     torrc_dir_ports: []
     torrc_dir_port_front_page: ''
