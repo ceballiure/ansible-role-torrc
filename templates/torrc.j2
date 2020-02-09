@@ -50,13 +50,7 @@ OutboundBindAddressExit {{ torrc_outbound_bind_address_exit }}
 {%- if torrc_outbound_bind_address_or %}
 OutboundBindAddressOR {{ torrc_outbound_bind_address_or }}
 {% endif %}
-{#
-## A handle for your relay, so people don't have to refer to it by key.
-## Nicknames must be between 1 and 19 characters inclusive, and must
-## contain only the characters [a-zA-Z0-9].
-## If not set, "Unnamed" will be used.
-#Nickname ididnteditheconfig
-#}
+
 {%- if torrc_nickname %}
 Nickname {{ torrc_nickname }}
 {% endif %}

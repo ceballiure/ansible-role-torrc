@@ -48,6 +48,10 @@ outgoing traffic to use.
 If you do not wish to differentiate, use `torrc_outbound_bind_address` to
 specify the same address for both in a single line.
 - `torrc_nickname: ''`
+A handle for your relay, so people don't have to refer to it by key.
+Nicknames must be between 1 and 19 characters inclusive, and must
+contain only the characters [a-zA-Z0-9].
+If not set, "Unnamed" will be used.
 - `torrc_relay_bandwidth_rate: ''`
 - `torrc_relay_bandwidth_burst: ''`
 - `torrc_accounting_max: ''`
@@ -125,7 +129,7 @@ Example Playbook
     torrc_outbound_bind_address: ''
     torrc_outbound_bind_address_exit: '10.0.0.4'
     torrc_outbound_bind_address_or: '10.0.0.5'
-    torrc_nickname: ''
+    torrc_nickname: 'ididnteditheconfig'
     torrc_relay_bandwidth_rate: ''
     torrc_relay_bandwidth_burst: ''
     torrc_accounting_max: ''
