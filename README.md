@@ -84,6 +84,14 @@ can explain what Tor is if anybody wonders why your IP address is
 contacting them. See contrib/tor-exit-notice.html in Tor's source
 distribution for a sample.
 - `torrc_my_family: ''`
+Fill this if you run more than one Tor relay, and add the identity
+key fingerprint of each Tor relay you control, even if they're on
+different networks. You declare it here so Tor clients can avoid
+using more than one of your relays in a single circuit. See
+https://www.torproject.org/docs/faq#MultipleRelays
+However, you should never include a bridge's fingerprint here, as it would
+break its concealability and potentially reveal its IP/TCP address.
+**If you are running multiple relays, you MUST set this option.**
 - `torrc_exit_relay: false`
 - `torrc_ipv6_exit: false`
 - `torrc_reduced_exit_policy: false`
@@ -173,7 +181,7 @@ Example Playbook
       - 80 NoListen
       - 127.0.0.1:9091 NoAdvertise
     torrc_dir_port_front_page: '@CONFDIR@/tor-exit-notice.html'
-    torrc_my_family: ''
+    torrc_my_family: '{{ your_family_keys_fingerprints | join(",") }}'
     torrc_exit_relay: false
     torrc_ipv6_exit: false
     torrc_reduced_exit_policy: false

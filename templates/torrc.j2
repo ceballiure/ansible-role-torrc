@@ -80,20 +80,7 @@ DirPort {{ port }}
 {%- if torrc_dir_port_front_page %}
 DirPortFrontPage {{ torrc_dir_port_front_page }}
 {% endif %}
-{#
-## Uncomment this if you run more than one Tor relay, and add the identity
-## key fingerprint of each Tor relay you control, even if they're on
-## different networks. You declare it here so Tor clients can avoid
-## using more than one of your relays in a single circuit. See
-## https://www.torproject.org/docs/faq#MultipleRelays
-## However, you should never include a bridge's fingerprint here, as it would
-## break its concealability and potentially reveal its IP/TCP address.
-##
-## If you are running multiple relays, you MUST set this option.
-##
-## Note: do not use MyFamily on bridge relays.
-#MyFamily $keyid,$keyid,...
-#}
+
 {%- if torrc_my_family %}
 MyFamily {{ torrc_my_family }}
 {% endif %}
