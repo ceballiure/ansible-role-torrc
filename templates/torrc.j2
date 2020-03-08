@@ -16,19 +16,21 @@ Log {{ log }}
 {# Maybe not render if not needed? #}
 RunAsDaemon {{ renderbool(torrc_run_as_daemon) }}
 
-{%- if torrc_data_directory %}
+{% if torrc_data_directory %}
 DataDirectory {{ torrc_data_directory }}
 {% endif %}
 
 {%- if torrc_control_port %}
 ControlPort {{ torrc_control_port }}
+{% if torrc_hashed_control_password %}
 HashedControlPassword {{ torrc_hashed_control_password }}
+{% endif %}
 CookieAuthentication {{ renderbool(torrc_cookie_authentication) }}
 {% endif %}
 
 {%- for service in torrc_hidden_services %}
 HiddenServiceDir {{ service.dir }}
-{%- for port in service.ports %}
+{% for port in service.ports %}
 HiddenServicePort {{ port }}
 {% endfor %}
 {% endfor %}
