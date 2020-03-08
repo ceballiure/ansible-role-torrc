@@ -97,6 +97,9 @@ Set true if you want your relay to be an exit, with the default
 exit policy (or whatever exit policy you set below).
 (If `torrc_reduced_exit_policy`, `torrc_exit_policies`, or `torrc_ipv6_exit` are set, relays are exits.
 If none of these options are set, relays are non-exits.)
+> Note that in some Tor versions relays were exits by default but this
+> Ansible role will explicitly set them to non-exits unless you configure
+> it otherwise.
 - `torrc_ipv6_exit: false`
 Set true if you want your relay to allow IPv6 exit traffic.
 (Relays do not allow any exit traffic by default.)
