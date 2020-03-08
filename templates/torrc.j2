@@ -87,7 +87,7 @@ DirPortFrontPage {{ torrc_dir_port_front_page }}
 MyFamily {{ torrc_my_family }}
 {% endif %}
 
-{%- if torrc_exit_relay %}
+{%- if torrc_or_ports %}
 ExitRelay {{ renderbool(torrc_exit_relay) }}
 {% endif %}
 
